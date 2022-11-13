@@ -1,8 +1,6 @@
 FROM eclipse-temurin:17-alpine
 
-COPY build/libs/k8s*.jar app.jar
-
-USER test
+COPY build/libs/k8s.jar app.jar
 
 EXPOSE 8080/tcp
 
