@@ -1,8 +1,5 @@
 name: Build & Deploy
 
-env:
-  IMAGE_NAME: task1
-
 on:
   push:
     branches:
