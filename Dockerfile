@@ -1,6 +1,6 @@
 FROM eclipse-temurin:17-alpine
 
-COPY build/libs/k8s.jar app.jar
+COPY build/libs/k8s*.jar app.jar
 
 USER test
 
