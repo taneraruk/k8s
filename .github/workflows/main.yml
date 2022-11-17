@@ -42,3 +42,66 @@ jobs:
           context: .
           push: true
           tags: taneraruk/task1:latest
+
+      - name: Deploy to K8s
+        run: |
+          cat <<EOF | kubectl apply -f -
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: task1-service
+            namespace: tnr
+            labels:
+              app: task1
+          spec:
+            ports:
+            - name: http
+              port: 80
+              protocol: TCP
+              targetPort: 8080
+            selector:
+              app: task1
+          ---
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: task1-deployment
+            namespace: tnr
+            labels:
+              app: task1
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: task1
+            template:
+              metadata:
+                labels:
+                  app: task1
+              spec:
+                containers:
+                - name: task1
+                  image: taneraruk/task1
+                  imagePullPolicy: Always
+                  ports:
+                    - containerPort: 8080
+          
+          ---
+          apiVersion: networking.k8s.io/v1
+          kind: Ingress
+          metadata:
+            name: task1-ingress
+            namespace: tnr
+          spec:
+            rules:
+              - host: tnr-dart.fria.io
+                http:
+                  paths:
+                    - path: /
+                      pathType: Prefix
+                      backend:
+                        service:
+                          name: task1-service
+                          port:
+                            number: 80
+          EOF
