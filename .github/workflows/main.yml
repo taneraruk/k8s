@@ -52,8 +52,8 @@ jobs:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
       - name: Deploy to Cluster
         run: |
-          sed -i'' -e 's/IMAGE_LABEL/${{ github.sha }}/g' deployment.yml
-          kubectl apply -f deployment.yml
+          sed -i'' -e 's/IMAGE_LABEL/${{ github.sha }}/g' deployment/deployment.yml
+          kubectl apply -f deployment/deployment.yml
 
       - name: Deploy to K8s
         run: |
