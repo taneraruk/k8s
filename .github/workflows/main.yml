@@ -59,4 +59,4 @@ jobs:
           with:
             namespace: tnr
             manifest: https://raw.githubusercontent.com/taneraruk/k8s/deployment/deployment.yml
-          images: taneraruk/task1:latest
+            images: taneraruk/task1:latest
