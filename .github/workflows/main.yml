@@ -10,7 +10,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -47,17 +46,18 @@ jobs:
           tags: taneraruk/task1:latest
 
   deploy:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Set Kubernetes Context
-          uses: Azure/k8s-set-context@v3.0
-          with:
-            kubeconfig: ${{ secrets.KUBE_CONFIG }}
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Kubernetes Context
+        uses: Azure/k8s-set-context@v3.0
+        with:
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
-        - name: Deploy to K8s
-          uses: Azure/k8s-deploy@v4
-          with:
-            namespace: tnr
-            manifests: https://raw.githubusercontent.com/taneraruk/k8s/main/deployment/deployment.yml
-            images: |
-              taneraruk/task1:latest
+      - name: Deploy to K8s
+        uses: Azure/k8s-deploy@v4
+        with:
+          namespace: tnr
+          manifests: https://raw.githubusercontent.com/taneraruk/k8s/main/deployment/deployment.yml
+          images: |
+            taneraruk/task1:latest
