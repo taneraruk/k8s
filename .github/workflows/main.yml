@@ -46,7 +46,7 @@ jobs:
           tags: taneraruk/task1:latest
 
       - name: Set Kubernetes Context
-        uses: azure/k8s-set-context@v1
+        uses: matootie/dokube@v1.4.0
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
