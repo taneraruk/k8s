@@ -58,5 +58,6 @@ jobs:
           uses: Azure/k8s-deploy@v4
           with:
             namespace: tnr
-            manifest: https://raw.githubusercontent.com/taneraruk/k8s/deployment/deployment.yml
-            images: taneraruk/task1:latest
+            manifests: https://https://raw.githubusercontent.com/taneraruk/k8s/main/deployment/deployment.yml
+            images: |
+              taneraruk/task1:latest
