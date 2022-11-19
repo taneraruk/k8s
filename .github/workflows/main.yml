@@ -56,6 +56,5 @@ jobs:
         with:
           namespace: tnr
           manifests: https://raw.githubusercontent.com/taneraruk/k8s/main/deployment/deployment.yml
-          imagePullPolicy: Always
           images: |
             taneraruk/task1:latest

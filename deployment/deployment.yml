@@ -15,6 +15,7 @@ spec:
       containers:
         - name: task1
           image: taneraruk/task1
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
 ---
