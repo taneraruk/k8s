@@ -11,6 +11,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      actions: read
 
     steps:
       - uses: actions/checkout@v3
@@ -55,5 +59,5 @@ jobs:
         uses: Azure/k8s-deploy@v4
         with:
           namespace: tnr
-          manifests: /deployment.yml
+          manifests: manifests/deployment.yml
           images: taneraruk/task1:latest
