@@ -1,41 +1,58 @@
 apiVersion: apps/v1
+
 kind: Deployment
+
 metadata:
   name: task1-deployment
   namespace: tnr
+
 spec:
   selector:
     matchLabels:
       app: task1
+
   template:
     metadata:
       labels:
         app: task1
+
     spec:
       containers:
         - name: task1
           image: taneraruk/task1
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
+
 ---
+
 apiVersion: v1
+
 kind: Service
+
 metadata:
   name: task1-service
   namespace: tnr
+
 spec:
   selector:
     app: task1
+
   ports:
     - protocol: TCP
       port: 80
       targetPort: 8080
+
 ---
+
 apiVersion: networking.k8s.io/v1
+
 kind: Ingress
+
 metadata:
   name: task1-ingress
   namespace: tnr
+
 spec:
   rules:
     - host: tnr-dart.fria.io

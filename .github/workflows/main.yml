@@ -11,6 +11,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      actions: read
 
     steps:
       - uses: actions/checkout@v3
@@ -42,10 +46,6 @@ jobs:
           push: true
           tags: taneraruk/task1:latest
 
-  deploy:
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
       - name: Set Kubernetes Context
         uses: Azure/k8s-set-context@v3.0
         with:
@@ -55,6 +55,5 @@ jobs:
         uses: Azure/k8s-deploy@v4
         with:
           namespace: tnr
-          manifests: https://raw.githubusercontent.com/taneraruk/k8s/main/deployment/deployment.yml
-          images: |
-            taneraruk/task1:latest
+          manifests: deployment.yml
+          images: taneraruk/task1:latest
