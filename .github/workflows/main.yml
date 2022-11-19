@@ -46,6 +46,11 @@ jobs:
           push: true
           tags: taneraruk/task1:latest
 
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
       - name: Set Kubernetes Context
         uses: Azure/k8s-set-context@v3.0
         with:
